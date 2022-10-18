@@ -26,6 +26,11 @@ class Heap {
         T top();
         void pop();
         bool isEmpty();
+        std::vector<T> getData();
+        CMP getComparator();
+        
+    
+    private:
         std::vector<T> data;
         CMP comparator;
        
@@ -116,17 +121,16 @@ void Heap<T,CMP>::pop() {
 }
 
 template<typename T, typename CMP>
-bool Heap<T,CMP>::isEmpty() {
+std::vector<T> Heap<T,CMP>::getData() {
     
-    if (data.size() == 0)
-    {
-        return true;
-    }
-    
-    return false;
+    return data;
 }
 
-
+template<typename T, typename CMP>
+CMP Heap<T,CMP>::getComparator() {
+    
+    return comparator;
+}
 
 void print() {
     // do nothing
@@ -138,10 +142,10 @@ template<typename T, typename CMP, typename... Rest>
 void print(Heap<T,CMP> param1, Rest... params)
 {
     
-    std::vector<T> printOrder;
-    printOrder = param1.data;
+    std::vector<T> printOrder = param1.getData();
+    CMP copyComparator = param1.getComparator();
     
-    std::sort(printOrder.begin(), printOrder.end(), param1.comparator);
+    std::sort(printOrder.begin(), printOrder.end(), copyComparator);
     
     for (int i = 0; i < printOrder.size(); i++)
     {

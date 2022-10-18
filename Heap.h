@@ -13,7 +13,7 @@
 #include <iomanip>
 #include <vector>
 
-
+// any heap with this structure, Heap<T>, has a CMP type of std::less<T> by default
 template<typename T, typename CMP = std::less<T>>
 
 class Heap {
@@ -89,7 +89,7 @@ void Heap<T,CMP>::push(T param1, Ts... params) {
     
     int currentIndex = data.size()-1;
     
-    // any data that is being added needs to be implemented into the heap structure:
+    // any data that is being added needs to be put into the heap structure accordingly:
     while (comparator(data[currentIndex], data[(currentIndex-1)/2]))
     {
         T temp = data[(currentIndex-1)/2];
@@ -104,7 +104,7 @@ void Heap<T,CMP>::push(T param1, Ts... params) {
 
 template<typename T, typename CMP>
 T Heap<T,CMP>::top() {
-    
+        
     return data[0];
 }
 

@@ -34,8 +34,6 @@ class Heap {
     private:
         std::vector<T> data;
         CMP comparator;
-       
-    
 };
 
 
@@ -52,6 +50,7 @@ Heap<T,CMP>::Heap() {
 template<typename T, typename CMP>
 Heap<T,CMP>::Heap(std::vector<T> input) {
     
+    // put elements in vector into heap structure
     for (int i = 0; i < input.size(); i++)
     {
         data.push_back(input[i]);
@@ -90,6 +89,7 @@ void Heap<T,CMP>::push(T param1, Ts... params) {
     
     int currentIndex = data.size()-1;
     
+    // any data that is being added needs to be implemented into the heap structure:
     while (comparator(data[currentIndex], data[(currentIndex-1)/2]))
     {
         T temp = data[(currentIndex-1)/2];
@@ -146,16 +146,16 @@ void print(Heap<T,CMP> param1, Rest... params)
 
     CMP copyComparator = param1.getComparator();
     
-
+    // swap data 
     for (int i = 0; i < printOrder.size(); i++)
     {
         int pos = i;
         
         for (int j = i + 1; j < printOrder.size(); j++)
         {
-            if (copyComparator(printOrder[i],printOrder[j]) == false)
+            if (copyComparator(printOrder[j],printOrder[i]))
             {
-                pos = j;
+                std::swap(printOrder[j],printOrder[i]);
             }
         }
         

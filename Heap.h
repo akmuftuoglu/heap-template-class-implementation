@@ -9,6 +9,8 @@
 #ifndef Heap_hpp
 #define Heap_hpp
 
+#include <iostream>
+#include <iomanip>
 #include <vector>
 
 
@@ -25,7 +27,6 @@ class Heap {
         void push(T param1, Ts... params);
         T top();
         void pop();
-        bool isEmpty();
         std::vector<T> getData();
         CMP getComparator();
         
@@ -141,11 +142,28 @@ template<typename T, typename CMP, typename... Rest>
 
 void print(Heap<T,CMP> param1, Rest... params)
 {
-    
     std::vector<T> printOrder = param1.getData();
+
     CMP copyComparator = param1.getComparator();
     
-    std::sort(printOrder.begin(), printOrder.end(), copyComparator);
+
+    for (int i = 0; i < printOrder.size(); i++)
+    {
+        int pos = i;
+        
+        for (int j = i + 1; j < printOrder.size(); j++)
+        {
+            if (copyComparator(printOrder[i],printOrder[j]) == false)
+            {
+                pos = j;
+            }
+        }
+        
+        T temp = printOrder[pos];
+        printOrder[pos] = printOrder[i];
+        printOrder[i] = temp;
+        
+    }
     
     for (int i = 0; i < printOrder.size(); i++)
     {

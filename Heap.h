@@ -6,8 +6,8 @@
 */
 
 
-#ifndef Heap_hpp
-#define Heap_hpp
+#ifndef Heap_h
+#define Heap_h
 
 #include <iostream>
 #include <iomanip>
@@ -15,6 +15,13 @@
 
 // any heap with this structure, Heap<T>, has a CMP type of std::less<T> by default
 template<typename T, typename CMP = std::less<T>>
+
+
+//If an element is stored in i-th position, then its
+//Left child is stored at index 2i+1
+//Right child is stored at index 2i+2
+//Parent is stored at [(i-1)/2]
+
 
 class Heap {
     
@@ -37,11 +44,7 @@ class Heap {
 };
 
 
-//If an element is stored in i-th position, then its
-//Left child is stored at index 2i+1
-//Right child is stored at index 2i+2
-//Parent is stored at [(i-1)/2]
-
+// need empty function for recursive call
 template<typename T, typename CMP>
 Heap<T,CMP>::Heap() {
     // do nothing
@@ -56,6 +59,7 @@ Heap<T,CMP>::Heap(std::vector<T> input) {
         data.push_back(input[i]);
         int currentIndex = i;
         
+        // swapping child and parent "nodes"
         while (comparator(data[currentIndex], data[(currentIndex-1)/2]))
         {
             T temp = data[(currentIndex-1)/2];
@@ -76,6 +80,7 @@ void Heap<T,CMP>::display() {
     }
 }
 
+// need empty function for recursive call
 template<typename T, typename CMP>
 void Heap<T,CMP>::push() {
     // do nothing
@@ -83,6 +88,7 @@ void Heap<T,CMP>::push() {
 
 template<typename T, typename CMP>
 template<typename... Ts>
+// T and Ts are of same type because of recursive call
 void Heap<T,CMP>::push(T param1, Ts... params) {
     
     data.push_back(param1);
@@ -133,13 +139,14 @@ CMP Heap<T,CMP>::getComparator() {
     return comparator;
 }
 
+// need empty function for recursive call
 void print() {
     // do nothing
 }
 
 
 template<typename T, typename CMP, typename... Rest>
-
+// Heap<T,CMP> and Rest are of same type because of recursive call
 void print(Heap<T,CMP> param1, Rest... params)
 {
     std::vector<T> printOrder = param1.getData();
@@ -177,4 +184,4 @@ void print(Heap<T,CMP> param1, Rest... params)
 
 
 
-#endif /* Heap_hpp */
+#endif /* Heap_h */
